@@ -4,7 +4,7 @@ namespace App\Models;
 
 class Categories
 {
-    private static $categories = [
+    private array $categories = [
         1 => [
             "id" => 1,
             "name" => "Политика",
@@ -23,13 +23,13 @@ class Categories
         ],
     ];
 
-    public static function getAll(): array
+    public function getAll(): array
     {
-        return static::$categories;
+        return $this->categories;
     }
 
-    public static function getOne(int $id): ?array
+    public function getOne(int $id): ?array
     {
-        return static::$categories[$id] ?? null;
+        return $this->getAll()[$id] ?? null;
     }
 }

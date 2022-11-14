@@ -9,10 +9,10 @@
 </head>
 
 <body>
-    <?php include_once "menu.php"; ?>
+    @include("menu")
     <h2>Новости <?= $category["name"] ?? "" ?></h2>
     <?php foreach ($news as $item) : ?>
-        <a href="/news/<?= $item["id"] ?>"><?= $item["title"] ?></a><br>
+        <a href="<?= route("news.show", $item["id"]) ?>"><?= $item["title"] ?></a><br>
     <?php endforeach; ?>
 </body>
 

@@ -6,25 +6,13 @@ use App\Models\News;
 
 class NewsController extends Controller
 {
-    public function index()
+    public function index(News $news)
     {
-        $news = News::getAll();
-        return view("news")->with("news", $news);
+        return view("news.index")->with("news", $news->getAll());
     }
 
-    public function show(int $id)
+    public function show(News $news, int $id)
     {
-        $news = News::getOne($id);
-        if (isset($news))
-        {
-            return view("news-more")->with("news", $news);
-        }
-        // Не нашел, как отсюда вызвать fallback
-        return view("404");
-    }
-
-    public function create()
-    {
-        return view("create-news");
+        return view("news.show")->with("news", $news->getOne($id));
     }
 }

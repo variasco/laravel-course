@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <?php include_once "menu.php"; ?>
+    @include("menu")
     <h2>Создать новую новость</h2>
     <form method="POST" action="/news/create">
         <label for="title">

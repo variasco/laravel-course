@@ -8,16 +8,15 @@ use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
-    public function index()
+    public function index(Categories $categories)
     {
-        $categories = Categories::getAll();
-        return view("categories")->with("categories", $categories);
+        return view("news.categories")->with("categories", $categories->getAll());
     }
 
-    public function show(int $id)
+    public function show(News $news, Categories $categories, int $id)
     {
-        $news = News::getByCategory($id);
-        $category = Categories::getOne($id);
-        return view("news")->with("news", $news)->with("category", $category);
+        return view("news.index")
+            ->with("news", $news->getByCategory($id))
+            ->with("category", $categories->getOne($id));
     }
 }
