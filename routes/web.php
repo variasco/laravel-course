@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\NewsController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,8 +14,8 @@ Route::name("news.")
     ->group(function ()
     {
         Route::get("/", [NewsController::class, "index"])->name("index");
-        Route::get("/categories", [CategoriesController::class, "index"])->name("categories");
-        Route::get("/category/{id}", [CategoriesController::class, "show"])->whereNumber("id")->name("category");
+        Route::get("/categories", [CategoryController::class, "index"])->name("categories");
+        Route::get("/category/{slug}", [CategoryController::class, "show"])->whereAlpha("slug")->name("category");
         Route::get("/{id}", [NewsController::class, "show"])->whereNumber("id")->name("show");
     });
 

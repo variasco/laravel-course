@@ -1,15 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layout.main')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Создать новую новость</title>
-    <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-</head>
+@section('title', 'Создание новости')
 
-<body>
-    @include("menu")
+@section('menu')
+    @include('menu')
+@endsection
+
+@section('content')
     <h2>Создать новую новость</h2>
     <form method="POST" action="/news/create">
         <label for="title">
@@ -23,6 +20,4 @@
         </label>
         <button type="submit">Создать</button>
     </form>
-</body>
-
-</html>
+@endsection
