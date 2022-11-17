@@ -1,16 +1,22 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get("/", function ()
 {
     return view("welcome");
-})->name("home");
+})->name("main");
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::view('/react', 'react')->name('react');
 
 Route::name("news.")
-    ->prefix("news")
+    ->prefix("/news")
     ->group(function ()
     {
         Route::get("/", [NewsController::class, "index"])->name("index");
@@ -20,7 +26,7 @@ Route::name("news.")
     });
 
 Route::name("admin.")
-    ->prefix("admin")
+    ->prefix("/admin")
     ->group(function ()
     {
         Route::get("/create_news", function ()
@@ -30,12 +36,9 @@ Route::name("admin.")
     });
 
 
-Route::get("/login", function ()
-{
-    return view("login");
-})->name("login");
+// Route::get("/login", function ()
+// {
+//     return view("login");
+// })->name("login");
 
-Route::fallback(function ()
-{
-    return view("404");
-})->name("fallback");
+Auth::routes();

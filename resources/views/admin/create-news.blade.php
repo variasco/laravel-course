@@ -1,4 +1,4 @@
-@extends('layout.main')
+@extends('layouts.app')
 
 @section('title', 'Создание новости')
 
@@ -9,15 +9,20 @@
 @section('content')
     <h2>Создать новую новость</h2>
     <form method="POST" action="/news/create">
-        <label for="title">
-            <input type="text" name="title" placeholder="Название">
-        </label>
-        <label for="description">
-            <input type="text" name="description" placeholder="Описание">
-        </label>
-        <label for="short">
-            <input type="text" name="short" placeholder="Короткое описание">
-        </label>
-        <button type="submit">Создать</button>
+        <div class="mb-3">
+            <label for="title" class="form-label">Название</label>
+            <input type="text" class="form-control" id="title" placeholder="Невероятная история">
+        </div>
+        <div class="mb-3">
+            <label for="short" class="form-label">Короткое описание</label>
+            <input type="text" class="form-control" id="short" placeholder="Жил был язь..."></input>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Текст</label>
+            <textarea class="form-control" id="description" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary mb-3">Создать</button>
+        </div>
     </form>
 @endsection
