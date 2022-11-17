@@ -1,10 +1,11 @@
 @extends('layouts.app')
-@section('title', 'Главная')
+
+@section('title', 'React')
 
 @section('menu')
     @include('menu')
 @endsection
 
 @section('content')
-    <h2>Добро пожаловать</h2>
+    <div id="example"></div>
 @endsection
