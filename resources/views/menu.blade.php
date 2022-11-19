@@ -1,10 +1,12 @@
 @extends('layouts.main')
 
 @section('menu')
-    <li class="nav-item"><a class="nav-link" href="{{ route('main') }}">Главная</a></li>
-    <li class="nav-item"><a class="nav-link" href="{{ route('news.index') }}">Новости</a></li>
-    <li class="nav-item"><a class="nav-link" href="{{ route('news.categories') }}">Категории</a></li>
-    {{-- <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Вход</a></li> --}}
-    <li class="nav-item"><a class="nav-link" href="{{ route('admin.create_news') }}">Создать новость</a></li>
-    <li class="nav-item"><a class="nav-link" href="{{ route('react') }}">React</a></li>
+    <li class="nav-item"><a class="nav-link{{ request()->routeIs('main') ? ' active' : '' }}"
+            href="{{ route('main') }}">Главная</a></li>
+    <li class="nav-item"><a class="nav-link{{ request()->routeIs('news.index') ? ' active' : '' }}"
+            href="{{ route('news.index') }}">Новости</a></li>
+    <li class="nav-item"><a class="nav-link{{ request()->routeIs('news.categories') ? ' active' : '' }}"
+            href="{{ route('news.categories') }}">Категории</a></li>
+    <li class="nav-item"><a class="nav-link{{ request()->routeIs('admin.main') ? ' active' : '' }}"
+            href="{{ route('admin.main') }}">Админка</a></li>
 @endsection

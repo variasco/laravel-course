@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Storage;
+
 class News
 {
-    private Category $category;
     private array $news = [
         1 => [
             "id" => 1,
@@ -173,14 +174,10 @@ class News
         ],
     ];
 
-    public function __construct(Category $category)
-    {
-        $this->category = $category;
-    }
-
     public function getAll(): array
     {
-        return $this->news;
+        $rawNews = Storage::disk("local")->get("news.json");
+        return json_decode($rawNews, true);
     }
 
     public function getOne(int $id): ?array
@@ -201,9 +198,9 @@ class News
         return $newsByCategory ?? null;
     }
 
-    public function getByCategorySlug(string $slug): ?array
+    public function getByCategorySlug(string $slug, Category $category): ?array
     {
-        $category_id = $this->category->getIdBySlug($slug);
+        $category_id = $category->getIdBySlug($slug);
         return $this->getByCategory($category_id);
     }
 }
