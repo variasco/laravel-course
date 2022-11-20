@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\News;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -23,6 +26,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('welcome');
+    }
+
+    public function save(News $news, Category $category)
+    {
+        Storage::disk("local")->put("news.json", json_encode($news->getAll(), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+        Storage::disk("local")->put("categories.json", json_encode($category->getAll(), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+        dump("Сохранено");
     }
 }

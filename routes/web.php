@@ -1,19 +1,15 @@
 <?php
 
+use App\Http\Controllers\Admin\IndexController as AdminIndexController;
+use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get("/", function ()
-{
-    return view("welcome");
-})->name("main");
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-Route::view('/react', 'react')->name('react');
+Route::get("/", [HomeController::class, "index"])->name("main");
+Route::get("save", [HomeController::class, "save"])->name("save");
 
 Route::name("news.")
     ->prefix("/news")
@@ -29,16 +25,10 @@ Route::name("admin.")
     ->prefix("/admin")
     ->group(function ()
     {
-        Route::get("/create_news", function ()
-        {
-            return view("admin.create-news");
-        })->name("create_news");
+        Route::get("/", [AdminIndexController::class, "index"])->name("main");
+        Route::match(["get", "post"], "/create_news", [AdminNewsController::class, "create"])->name("create_news");
+        Route::match(["get", "post"], "/download_news", [AdminNewsController::class, "download"])->name("download_news");
+        Route::get("/export", [AdminNewsController::class, "export"]);
     });
-
-
-// Route::get("/login", function ()
-// {
-//     return view("login");
-// })->name("login");
 
 Auth::routes();
