@@ -26,7 +26,7 @@ class NewsController extends Controller
             $oldNews[$newId] = $news;
 
             Storage::disk("local")->put('news.json', json_encode($oldNews, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
-            return redirect()->route("news.show", $newId);
+            return redirect()->route("news.show", $newId)->with("success", "Новость успешно добавлена");
         }
 
         return view("admin.create_news")->with("categories", $category->getAll());
