@@ -9,6 +9,6 @@ class NewsExport implements FromCollection
 {
     public function collection()
     {
-        return (new News)->getAll();
+        return News::all();
     }
 }

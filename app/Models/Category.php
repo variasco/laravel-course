@@ -2,55 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Category
+class Category extends Model
 {
-    private array $categories = [
-        1 => [
-            "id" => 1,
-            "name" => "Политика",
-            "slug" => "politic"
-        ],
-        2 => [
-            "id" => 2,
-            "name" => "Спорт",
-            "slug" => "sport"
-        ],
-        3 => [
-            "id" => 3,
-            "name" => "Наука и технологии",
-            "slug" => "science"
-        ],
-        4 => [
-            "id" => 4,
-            "name" => "Экономика",
-            "slug" => "economic"
-        ],
-    ];
+    use HasFactory;
 
-    public function getAll(): array
-    {
-        $rawCategories = Storage::disk("local")->get("categories.json");
-        return json_decode($rawCategories, true);
-    }
+    protected $fillable = ["name", "slug"];
 
-    public function getOne(int $id): ?array
+    public function news()
     {
-        return $this->getAll()[$id] ?? null;
-    }
-
-    public function getIdBySlug(string $slug): ?int
-    {
-        $id = null;
-        foreach ($this->getAll() as $category)
-        {
-            if ($category["slug"] == $slug)
-            {
-                $id = $category["id"];
-                break;
-            }
-        }
-        return $id;
+        return $this->hasMany(News::class, "category_id")->get();
     }
 }
