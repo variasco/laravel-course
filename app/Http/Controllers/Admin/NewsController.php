@@ -6,33 +6,50 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\News;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\NewsExport;
-use App\Exports\UsersExport;
 
 class NewsController extends Controller
 {
-    public function create(Request $request, Category $category)
+    public function index()
+    {
+        $news = News::query()->paginate(5);
+        return view("admin.news.index")->with("news", $news);
+    }
+
+    public function create(Request $request, Category $category, News $news)
     {
         if ($request->isMethod("post"))
         {
-            $news = $request->except("_token");
-            $news['private'] = isset($news['private']);
-
-            $oldNews = json_decode(Storage::disk("local")->get("news.json"), true);
-            $newId = array_key_last($oldNews) + 1;
-            $news["id"] = $newId;
-            $oldNews[$newId] = $news;
-
-            Storage::disk("local")->put('news.json', json_encode($oldNews, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
-            return redirect()->route("news.show", $newId)->with("success", "Новость успешно добавлена");
+            $news->fill($request->except("_token"))->save();
+            return redirect()->route("admin.news.index")->with("success", "Новость успешно добавлена");
         }
-
-        return view("admin.create_news")->with("categories", $category->getAll());
+        return view("admin.news.create", ["news" => $news, "categories" => $category->all()]);
     }
 
-    public function download(Request $request, News $news, Category $category)
+    public function store(News $news)
+    {
+        // 
+    }
+
+    public function edit(News $news)
+    {
+        return view("admin.news.create", ["news" => $news, "categories" => Category::all()]);
+    }
+
+    public function update(Request $request, News $news)
+    {
+        $news->fill($request->except("_token"))->save();
+        return redirect()->route("admin.news.index")->with("success", "Новость успешно изменена");
+    }
+
+    public function destroy(News $news)
+    {
+        $news->delete();
+        return redirect()->route("admin.news.index")->with("success", "Новость успешно удалена");
+    }
+
+    public function download(Request $request)
     {
         if ($request->isMethod("post"))
         {
@@ -42,21 +59,20 @@ class NewsController extends Controller
             switch ($extension)
             {
                 case 'xlsx':
-                    // Выдает ошибку, так как в классе NewsExport должен быть вызван метод all() у модели. А такого метода нет. Так как реализация идет через файлы и собственные манипуляции с данными. Получение юзеров в excel работает как и описано в документации. 
+                    // Скачивание только всех новостей
                     return Excel::download(new NewsExport, 'news.xlsx');
 
                 default:
-                    return response()->json($category_id == "all" ? $news->getAll() : $news->getByCategory($category_id))
+                    return response()->json(
+                        $category_id == "all"
+                            ? News::all()
+                            : Category::query()->where("id", $category_id)->first()->news()
+                    )
                         ->header("Content-Disposition", 'attachment; filename = "news.json"')
                         ->setEncodingOptions(JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
             }
         }
 
-        return view("admin.download_news")->with("categories", $category->getAll());
-    }
-
-    public function export()
-    {
-        return Excel::download(new UsersExport, 'users.xlsx');
+        return view("admin.news.download")->with("categories", Category::all());
     }
 }

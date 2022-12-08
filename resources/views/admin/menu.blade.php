@@ -5,15 +5,23 @@
         <a class="nav-link" href="{{ route('main') }}">Главная</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link{{ request()->routeIs('admin.main') ? ' active' : '' }}"
-            href="{{ route('admin.main') }}">Админка</a>
+        <a class="nav-link{{ request()->routeIs('admin.news.index') ? ' active' : '' }}"
+            href="{{ route('admin.news.index') }}">Новости</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link{{ request()->routeIs('admin.create_news') ? ' active' : '' }}"
-            href="{{ route('admin.create_news') }}">Создать новость</a>
+        <a class="nav-link{{ request()->routeIs('admin.news.create') ? ' active' : '' }}"
+            href="{{ route('admin.news.create') }}">Создать новость</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link{{ request()->routeIs('admin.download_news') ? ' active' : '' }}"
-            href="{{ route('admin.download_news') }}">Скачать новости</a>
+        <a class="nav-link{{ request()->routeIs('admin.news.download') ? ' active' : '' }}"
+            href="{{ route('admin.news.download') }}">Скачать новости</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link{{ request()->routeIs('admin.category.index') ? ' active' : '' }}"
+            href="{{ route('admin.category.index') }}">Категории</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link{{ request()->routeIs('admin.category.create') ? ' active' : '' }}"
+            href="{{ route('admin.category.create') }}">Создать категорию</a>
     </li>
 @endsection

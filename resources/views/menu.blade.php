@@ -8,5 +8,5 @@
     <li class="nav-item"><a class="nav-link{{ request()->routeIs('news.categories') ? ' active' : '' }}"
             href="{{ route('news.categories') }}">Категории</a></li>
     <li class="nav-item"><a class="nav-link{{ request()->routeIs('admin.main') ? ' active' : '' }}"
-            href="{{ route('admin.main') }}">Админка</a></li>
+            href="{{ route('admin.news.index') }}">Админка</a></li>
 @endsection
