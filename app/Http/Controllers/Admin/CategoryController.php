@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreCategoryRequest;
 use Illuminate\Support\Str;
 use App\Models\Category;
-use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -15,17 +15,17 @@ class CategoryController extends Controller
         return view("admin.category.index")->with("categories", $categories);
     }
 
-    public function create(Request $request, Category $category)
+    public function create(Category $category)
     {
-        if ($request->isMethod("post"))
-        {
-            $category->fill($request->except("_token"));
-            $category->slug = Str::slug($category->name);
-            $category->save();
-            return redirect()->route("admin.category.index")->with("success", "Категория успешно добавлена");
-        }
-
         return view("admin.category.create", ["category" => $category]);
+    }
+
+    public function store(StoreCategoryRequest $request, Category $category)
+    {
+        $category->fill($request->validated());
+        $category->slug = Str::slug($category->name);
+        $category->save();
+        return redirect()->route("admin.category.index")->with("success", "Категория успешно добавлена");
     }
 
     public function edit(Category $category)
@@ -33,9 +33,9 @@ class CategoryController extends Controller
         return view("admin.category.create", ["category" => $category]);
     }
 
-    public function update(Request $request, Category $category)
+    public function update(StoreCategoryRequest $request, Category $category)
     {
-        $category->fill($request->except("_token"));
+        $category->fill($request->validated());
         $category->slug = Str::slug($category->name);
         $category->save();
         return redirect()->route("admin.category.index")->with("success", "Категория успешно изменена");
