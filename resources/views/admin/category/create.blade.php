@@ -13,15 +13,20 @@
         </div>
         <div class="card-body">
             <form method="POST"
-                action="{{ !$category->id ? route('admin.category.create') : route('admin.category.update', $category) }}">
+                action="{{ !$category->id ? route('admin.category.store') : route('admin.category.update', $category) }}">
                 @csrf
                 @if ($category->id)
                     @method('PUT')
                 @endif
                 <div class="form-group mb-3">
                     <label class="form-label" for="title">Название</label>
-                    <input class="form-control" value="{{ $category->name ?? old('name') }}" type="text" name="name"
+                    <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" value="{{ $category->name ?? old('name') }}" type="text" name="name"
                         id="name" placeholder="Политика">
+                    <div class="invalid-feedback">
+                        @error('name')
+                            {{ $message }}
+                        @enderror
+                    </div>
                 </div>
                 <div class="form-group mb-3">
                     <button class="btn btn-primary mb-3"

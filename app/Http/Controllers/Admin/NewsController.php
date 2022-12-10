@@ -8,6 +8,7 @@ use App\Models\News;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\NewsExport;
+use App\Http\Requests\StoreNewsRequest;
 
 class NewsController extends Controller
 {
@@ -17,19 +18,15 @@ class NewsController extends Controller
         return view("admin.news.index")->with("news", $news);
     }
 
-    public function create(Request $request, Category $category, News $news)
+    public function create(Category $category, News $news)
     {
-        if ($request->isMethod("post"))
-        {
-            $news->fill($request->except("_token"))->save();
-            return redirect()->route("admin.news.index")->with("success", "Новость успешно добавлена");
-        }
         return view("admin.news.create", ["news" => $news, "categories" => $category->all()]);
     }
 
-    public function store(News $news)
+    public function store(StoreNewsRequest $request, News $news, Category $category)
     {
-        // 
+        $news->fill($request->validated())->save();
+        return redirect()->route("admin.news.index")->with("success", "Новость успешно добавлена");
     }
 
     public function edit(News $news)
@@ -37,9 +34,11 @@ class NewsController extends Controller
         return view("admin.news.create", ["news" => $news, "categories" => Category::all()]);
     }
 
-    public function update(Request $request, News $news)
+    public function update(StoreNewsRequest $request, News $news)
     {
-        $news->fill($request->except("_token"))->save();
+        $news->fill($request->validated());
+        $news->private = isset($news->private);
+        $news->save();
         return redirect()->route("admin.news.index")->with("success", "Новость успешно изменена");
     }
 
@@ -48,6 +47,8 @@ class NewsController extends Controller
         $news->delete();
         return redirect()->route("admin.news.index")->with("success", "Новость успешно удалена");
     }
+
+
 
     public function download(Request $request)
     {
