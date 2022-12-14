@@ -61,6 +61,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('profile.update') }}">Профиль</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -81,7 +82,7 @@
         <main class="py-4">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-md-12">
+                    <div class="col-md-10">
                         @if (session('success'))
                             <div class="col-md-4">
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">

@@ -1,8 +1,9 @@
--- Active: 1668934544908@@127.0.0.1@3306@example_app
 <?php
 
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get("/", [HomeController::class, "index"])->name("main");
-Route::get("save", [HomeController::class, "save"])->name("save");
+Route::match(["get", "post"], "/profile", [ProfileController::class, "update"])->name("profile.update");
 
 Route::name("news.")->prefix("/news")->group(
     function ()
@@ -22,12 +23,14 @@ Route::name("news.")->prefix("/news")->group(
     }
 );
 
-Route::name("admin.")->prefix("/admin")->group(
+Route::name("admin.")->prefix("/admin")->middleware("admin")->group(
     function ()
     {
         Route::match(["get", "post"], "/news/download", [AdminNewsController::class, "download"])->name("news.download");
         Route::resource("news", AdminNewsController::class);
         Route::resource("category", AdminCategoryController::class);
+        Route::resource("user", AdminProfileController::class);
+        Route::patch("/user/{user}/toggle", [AdminProfileController::class, "toggle"])->name("user.toggle");
     }
 );
 

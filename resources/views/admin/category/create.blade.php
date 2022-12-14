@@ -20,13 +20,14 @@
                 @endif
                 <div class="form-group mb-3">
                     <label class="form-label" for="title">Название</label>
-                    <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" value="{{ $category->name ?? old('name') }}" type="text" name="name"
-                        id="name" placeholder="Политика">
-                    <div class="invalid-feedback">
-                        @error('name')
-                            {{ $message }}
-                        @enderror
-                    </div>
+                    <input class="form-control @error('name') 'is-invalid' @enderror"
+                        value="{{ $category->name ?? old('name') }}" type="text" name="name" id="name"
+                        placeholder="Политика">
+                    @error('name')
+                        <div class="invalid-feedback">
+                            <strong>{{ $message }}</strong>
+                        </div>
+                    @enderror
                 </div>
                 <div class="form-group mb-3">
                     <button class="btn btn-primary mb-3"
