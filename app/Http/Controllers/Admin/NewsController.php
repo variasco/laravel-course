@@ -23,7 +23,7 @@ class NewsController extends Controller
         return view("admin.news.create", ["news" => $news, "categories" => $category->all()]);
     }
 
-    public function store(StoreNewsRequest $request, News $news, Category $category)
+    public function store(StoreNewsRequest $request, News $news)
     {
         $news->fill($request->validated())->save();
         return redirect()->route("admin.news.index")->with("success", "Новость успешно добавлена");

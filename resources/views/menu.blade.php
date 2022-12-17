@@ -7,6 +7,8 @@
             href="{{ route('news.index') }}">Новости</a></li>
     <li class="nav-item"><a class="nav-link{{ request()->routeIs('news.categories') ? ' active' : '' }}"
             href="{{ route('news.categories') }}">Категории</a></li>
-    <li class="nav-item"><a class="nav-link{{ request()->routeIs('admin.main') ? ' active' : '' }}"
-            href="{{ route('admin.news.index') }}">Админка</a></li>
+    @admin
+        <li class="nav-item"><a class="nav-link{{ request()->routeIs('admin.main') ? ' active' : '' }}"
+                href="{{ route('admin.news.index') }}">Админка</a></li>
+    @endadmin
 @endsection

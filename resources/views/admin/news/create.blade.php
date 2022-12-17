@@ -19,34 +19,36 @@
                 @endif
                 <div class="form-group mb-3">
                     <label class="form-label" for="title">Заголовок</label>
-                    <input class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}"
+                    <input class="form-control @error('title') 'is-invalid' @enderror"
                         value="{{ $news->title ?? old('title') }}" type="text" name="title" id="title"
                         placeholder="Невероятная история">
-                    <div class="invalid-feedback">
-                        @error('title')
-                            {{ $message }}
-                        @enderror
-                    </div>
+                    @error('title')
+                        <div class="invalid-feedback">
+                            <strong>{{ $message }}</strong>
+                        </div>
+                    @enderror
                 </div>
                 <div class="form-group mb-3">
                     <label class="form-label" for="short">Краткое описание</label>
-                    <input class="form-control {{ $errors->has('short') ? 'is-invalid' : '' }}"
+                    <input class="form-control @error('short') 'is-invalid' @enderror"
                         value="{{ $news->short ?? old('short') }}" type="text" name="short" id="short"
                         placeholder="Жил был язь...">
-                    <div class="invalid-feedback">
-                        @error('short')
-                            {{ $message }}
-                        @enderror
-                    </div>
+                    @error('short')
+                        <div class="invalid-feedback">
+                            <strong>{{ $message }}</strong>
+                        </div>
+                    @enderror
                 </div>
                 <div class="form-group mb-3">
                     <label class="form-label" for="description">Текст</label>
-                    <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" rows="3">{{ $news->description ?? old('description') }}</textarea>
-                    <div class="invalid-feedback">
-                        @error('description')
-                            {{ $message }}
-                        @enderror
-                    </div>
+                    <textarea class="form-control @error('description') 'is-invalid' @enderror" name="description" rows="3">
+                        {{ $news->description ?? old('description') }}
+                    </textarea>
+                    @error('description')
+                        <div class="invalid-feedback">
+                            <strong>{{ $message }}</strong>
+                        </div>
+                    @enderror
                 </div>
                 <div class="form-group mb-3">
                     <label class="form-label" for="category">Категория</label>

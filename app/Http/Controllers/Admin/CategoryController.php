@@ -30,7 +30,8 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
-        return view("admin.category.create", ["category" => $category]);
+        dump($category);
+        return view("admin.category.create")->with("category", $category);
     }
 
     public function update(StoreCategoryRequest $request, Category $category)
