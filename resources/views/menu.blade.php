@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.app')
 
 @section('menu')
     <li class="nav-item"><a class="nav-link{{ request()->routeIs('main') ? ' active' : '' }}"
