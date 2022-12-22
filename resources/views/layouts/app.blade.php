@@ -92,6 +92,15 @@
                                 </div>
                             </div>
                         @endif
+                        @if (session('error'))
+                            <div class="col-md-4">
+                                <div class="alert alert-error alert-dismissible fade show" role="alert">
+                                    <div>{{ session('error') }}</div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                            </div>
+                        @endif
                         @yield('content')
                     </div>
                 </div>

@@ -99,8 +99,12 @@ class ProfileController extends Controller
 
     public function toggle(User $user)
     {
-        $user->admin = !$user->admin;
-        $user->save();
-        return redirect()->route("admin.user.index")->with("success", "Статус пользователя изменён");
+        if ($user->id != auth()->id())
+        {
+            $user->admin = !$user->admin;
+            $user->save();
+            return redirect()->route("admin.user.index")->with("success", "Статус пользователя изменён");
+        }
+        return redirect()->route("admin.user.index")->with("error", "Нельзя снять права администратора с себя");
     }
 }

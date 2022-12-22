@@ -59,6 +59,15 @@
                                 </div>
                             </div>
 
+                            <div class="row mb-3">
+                                <div class="col-md-8 offset-md-4">
+                                    <a href="{{ route('socLogin', 'github') }}"><img style="width: 32px"
+                                            src="github-icon.png" alt="github"></a>
+                                    <a href="{{ route('socLogin', 'google') }}"><img style="width: 32px"
+                                            src="google-icon.png" alt="google"></a>
+                                </div>
+                            </div>
+
                             <div class="row mb-0">
                                 <div class="col-md-8 offset-md-4">
                                     <button type="submit" class="btn btn-primary">

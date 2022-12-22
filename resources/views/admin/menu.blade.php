@@ -1,4 +1,4 @@
-aaaaa@extends('layouts.main')
+@extends('layouts.app')
 
 @section('menu')
     <li class="nav-item">
@@ -27,5 +27,9 @@ aaaaa@extends('layouts.main')
     <li class="nav-item">
         <a class="nav-link{{ request()->routeIs('admin.news.download') ? ' active' : '' }}"
             href="{{ route('admin.news.download') }}">Скачать новости</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link{{ request()->routeIs('admin.parse') ? ' active' : '' }}"
+            href="{{ route('admin.parser') }}">Парсер</a>
     </li>
 @endsection

@@ -12,9 +12,11 @@
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
+        "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.1",
         "maatwebsite/excel": "^3.1",
+        "orchestra/parser": "^7.0",
         "psr/simple-cache": "^2.0"
     },
     "require-dev": {

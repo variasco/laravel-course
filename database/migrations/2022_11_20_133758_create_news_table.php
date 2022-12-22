@@ -18,7 +18,7 @@ return new class extends Migration
         {
             $table->id();
             $table->string("title");
-            $table->string("short");
+            $table->text("short");
             $table->text("description");
             $table->boolean("private")->default(false);
             $table->unsignedBigInteger("category_id");
