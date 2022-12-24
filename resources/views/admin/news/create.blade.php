@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <div class="col-md-5">
+    <div class="col-md-8">
         <div class="card-header">
             <h2>{{ !$news->id ? 'Создать новую новость' : 'Изменить новость' }}</h2>
         </div>
@@ -19,7 +19,7 @@
                 @endif
                 <div class="form-group mb-3">
                     <label class="form-label" for="title">Заголовок</label>
-                    <input class="form-control @error('title') 'is-invalid' @enderror"
+                    <input class="form-control @error('title') is-invalid @enderror"
                         value="{{ $news->title ?? old('title') }}" type="text" name="title" id="title"
                         placeholder="Невероятная история">
                     @error('title')
@@ -30,7 +30,7 @@
                 </div>
                 <div class="form-group mb-3">
                     <label class="form-label" for="short">Краткое описание</label>
-                    <input class="form-control @error('short') 'is-invalid' @enderror"
+                    <input class="form-control @error('short') is-invalid @enderror"
                         value="{{ $news->short ?? old('short') }}" type="text" name="short" id="short"
                         placeholder="Жил был язь...">
                     @error('short')
@@ -41,9 +41,18 @@
                 </div>
                 <div class="form-group mb-3">
                     <label class="form-label" for="description">Текст</label>
-                    <textarea class="form-control @error('description') 'is-invalid' @enderror" name="description" rows="3">
+                    <textarea id="editor" class="form-control @error('description') is-invalid @enderror" name="description"
+                        rows="3">
                         {{ $news->description ?? old('description') }}
                     </textarea>
+
+                    <script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
+                    <script>
+                        CKEDITOR.replace('editor', {
+                            filebrowserImageBrowseUrl: '/file-manager/ckeditor'
+                        });
+                    </script>
+
                     @error('description')
                         <div class="invalid-feedback">
                             <strong>{{ $message }}</strong>
@@ -70,7 +79,8 @@
                     <label class="form-label" for="private">Приватная</label>
                 </div>
                 <div class="form-group mb-3">
-                    <button class="btn btn-primary mb-3" type="submit">{{ !$news->id ? 'Добавить' : 'Изменить' }}</button>
+                    <button class="btn btn-primary mb-3"
+                        type="submit">{{ !$news->id ? 'Добавить' : 'Сохранить' }}</button>
                 </div>
             </form>
         </div>
