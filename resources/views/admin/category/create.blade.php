@@ -20,7 +20,7 @@
                 @endif
                 <div class="form-group mb-3">
                     <label class="form-label" for="title">Название</label>
-                    <input class="form-control @error('name') 'is-invalid' @enderror"
+                    <input class="form-control @error('name') is-invalid @enderror"
                         value="{{ $category->name ?? old('name') }}" type="text" name="name" id="name"
                         placeholder="Политика">
                     @error('name')

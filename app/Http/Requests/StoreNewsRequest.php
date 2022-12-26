@@ -28,7 +28,7 @@ class StoreNewsRequest extends FormRequest
         $categoryTableName = $category->getTable();
         return [
             "title" => "required|min:3|max:255",
-            "short" => "required|min:3|max:255",
+            "short" => "required|min:3|max:1000",
             "description" => "required|min:3",
             "private" => "sometimes|in:1",
             "category_id" => "required|exists:${categoryTableName},id"

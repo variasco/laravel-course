@@ -17,6 +17,10 @@
             href="{{ route('admin.user.index') }}">Профили</a>
     </li>
     <li class="nav-item">
+        <a class="nav-link{{ request()->routeIs('admin.resource.index') ? ' active' : '' }}"
+            href="{{ route('admin.resource.index') }}">Источники</a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link{{ request()->routeIs('admin.news.create') ? ' active' : '' }}"
             href="{{ route('admin.news.create') }}">Создать новость</a>
     </li>

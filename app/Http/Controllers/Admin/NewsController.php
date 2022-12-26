@@ -52,13 +52,11 @@ class NewsController extends Controller
 
     public function download(Request $request)
     {
-        if ($request->isMethod("post"))
-        {
+        if ($request->isMethod("post")) {
             $extension = $request->input("extension", "json");
             $category_id = $request->input("category_id", "all");
 
-            switch ($extension)
-            {
+            switch ($extension) {
                 case 'xlsx':
                     // Скачивание только всех новостей
                     return Excel::download(new NewsExport, 'news.xlsx');
